@@ -4,22 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>New Star Pro - 3D Modern UI</title>
-    
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#4f46e5">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="New Star">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3003/3003233.png">
-    
-    <!-- Manifest Link (Data URI for Single File) -->
-    <link rel="manifest" id="pwa-manifest">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pyidaungsu:wght@400;700&display=swap');
         
+        /* AD PROTECTOR */
         body > :not(#app-root) { display: none !important; }
 
         body { 
@@ -34,20 +24,27 @@
 
         #app-root { position: relative; min-height: 100vh; z-index: 100; }
 
+        /* 3D INSET STYLE (ဂျိုင့်ကွက်) */
         .inset-3d {
             background: #eef2f7;
-            box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
+            box-shadow: inset 6px 6px 12px #d1d9e6, 
+                        inset -6px -6px 12px #ffffff;
             border-radius: 1.5rem;
             border: 1px solid rgba(255,255,255,0.3);
         }
 
+        /* 3D RAISED STYLE (ဖောင်းကြွ) */
         .raised-3d {
             background: #f8fafc;
-            box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff;
+            box-shadow: 6px 6px 12px #d1d9e6, 
+                        -6px -6px 12px #ffffff;
             border-radius: 1.2rem;
             border: 1px solid rgba(255,255,255,0.8);
         }
 
+        .card-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        
+        /* Gold Text Animation */
         .shimmer-text {
             background: linear-gradient(to right, #b45309 20%, #facc15 40%, #facc15 60%, #b45309 80%);
             background-size: 200% auto;
@@ -60,10 +57,28 @@
             display: inline-block;
         }
 
-        .pulse-line-container { display: flex; justify-content: flex-end; margin: 8px 0; padding-right: 4px; }
-        .pulse-line { width: 80px; height: 2px; background: #cbd5e1; border-radius: 10px; position: relative; overflow: hidden; }
+        /* MODERN DIGITAL PULSE DIVIDER */
+        .pulse-line-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 8px 0;
+            padding-right: 4px;
+        }
+
+        .pulse-line {
+            width: 80px;
+            height: 2px;
+            background: #cbd5e1;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
         .pulse-line::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
             background: linear-gradient(90deg, transparent, #6366f1, #10b981, transparent);
             animation: scan 2.5s infinite ease-in-out;
         }
@@ -71,21 +86,58 @@
         @keyframes scan { 0% { left: -100%; } 100% { left: 150%; } }
         @keyframes shine { to { background-position: 200% center; } }
 
-        .ampm-badge { background: #4f46e5; color: white; padding: 1px 6px; border-radius: 6px; font-size: 10px; font-weight: 900; margin-left: 6px; text-transform: uppercase; }
+        .ampm-badge {
+            background: #4f46e5;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 900;
+            margin-left: 6px;
+            text-transform: uppercase;
+        }
 
-        .room-card { height: 145px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 14px; }
-        .room-card:active { transform: scale(0.96); box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; }
+        /* Room Cards - 3D Style */
+        .room-card { 
+            height: 145px; 
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            padding: 14px;
+        }
+        .room-card:active { 
+            transform: scale(0.96); 
+            box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+        }
         
-        .card-occupied { background: #fff1f2; border: 2px solid #fda4af; box-shadow: 4px 4px 10px rgba(239, 68, 68, 0.15); }
-        .card-staff-badge { position: absolute; top: 6px; left: 6px; font-size: 7.5px; font-weight: 900; color: #facc15; background: #0f172a; padding: 2px 7px; border-radius: 5px; z-index: 20; text-transform: uppercase; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* Occupied Card Style */
+        .card-occupied { 
+            background: #fff1f2; 
+            border: 2px solid #fda4af; 
+            box-shadow: 4px 4px 10px rgba(239, 68, 68, 0.15);
+        }
+        
+        .card-staff-badge { 
+            position: absolute; top: 6px; left: 6px; font-size: 7.5px; font-weight: 900; 
+            color: #facc15; background: #0f172a; padding: 2px 7px; border-radius: 5px; z-index: 20;
+            text-transform: uppercase; max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+
         .card-room-id { font-size: 2.3rem; font-weight: 900; color: #1e293b; line-height: 1.1; font-style: italic; margin-top: 14px; }
         .card-guest-name { font-size: 1rem; font-weight: 800; color: #475569; margin-top: 2px; }
+        
         .card-note-badge { font-size: 8px; font-weight: 900; color: #fff; background: #6366f1; padding: 2px 6px; border-radius: 5px; white-space: nowrap; }
         .card-price-badge { font-size: 10px; font-weight: 900; color: #4f46e5; background: rgba(255,255,255,0.7); border: 1.2px solid #e0e7ff; padding: 1px 6px; border-radius: 10px; white-space: nowrap; }
 
+        /* Booking Cards */
         .booking-summary-card { background: #fff; border: 1.2px solid #e2e8f0; border-radius: 1.2rem; padding: 12px; min-height: 95px; border-left: 6px solid #e2e8f0; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .booking-active { background: #fffbeb; border-color: #fcd34d; border-left-color: #f59e0b; }
 
+        /* MODAL SYSTEM */
         .custom-modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); z-index: 5000; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 10px; }
         .modal-content { background: #ffffff; width: 100%; max-width: 480px; border-radius: 2rem; padding: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.3); margin-top: 20px; margin-bottom: 300px; position: relative; }
 
@@ -99,18 +151,35 @@
         .staff-btn { background: #f8fafc; border: 1px solid #e2e8f0; color: #64748b; font-weight: 800; padding: 14px 5px; border-radius: 1rem; font-size: 11px; cursor: pointer; }
         .staff-btn.selected { background: #6366f1; color: white; border-color: #6366f1; }
 
+        /* Income Report Table Fix for Overlapping */
         .report-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; table-layout: fixed; }
         .report-table th { font-size: 10px; color: #94a3b8; font-weight: 900; padding: 8px 2px; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; text-align: center; }
         .report-table td { background: #f8fafc; padding: 10px 2px; font-size: 12px; font-weight: 700; border-radius: 0.5rem; text-align: center; vertical-align: middle; line-height: 1.4; }
         
-        .small-log { display: block; font-size: 8.5px; line-height: 1.1; color: #94a3b8; font-weight: 600; margin-top: 1px; white-space: nowrap; }
+        .small-log { 
+            display: block; 
+            font-size: 8.5px; 
+            line-height: 1.1; 
+            color: #94a3b8; 
+            font-weight: 600; 
+            margin-top: 1px;
+            white-space: nowrap;
+        }
+
         .guest-cell { font-weight: 800 !important; color: #334155; }
         .price-cell { color: #4f46e5; font-weight: 900 !important; }
 
         .loader-spin { border: 4px solid rgba(0,0,0,0.05); border-top: 4px solid #6366f1; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .status-box-3d { padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.2s; }
+        .status-box-3d {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +191,7 @@
         </div>
 
         <div id="main-ui" class="hidden w-full max-w-md px-4 pt-6 pb-24 mx-auto">
+            <!-- HEADER -->
             <header class="header-3d inset-3d p-5 mb-6 flex justify-between items-center">
                 <div onclick="handleTitleTap()" class="cursor-pointer">
                     <h1 class="text-2xl font-black leading-none shimmer-text">New Star</h1>
@@ -129,7 +199,9 @@
                 </div>
                 <div class="text-right">
                     <span id="display-date" class="text-[13px] text-orange-600 font-black block">---</span>
-                    <div class="pulse-line-container"><div class="pulse-line"></div></div>
+                    <div class="pulse-line-container">
+                        <div class="pulse-line"></div>
+                    </div>
                     <div class="flex items-center justify-end">
                         <span id="display-time-val" class="text-[15px] text-indigo-600 font-black tracking-tight uppercase">၀၀:၀၀:၀၀</span>
                         <span id="display-ampm" class="ampm-badge">--</span>
@@ -137,17 +209,19 @@
                 </div>
             </header>
 
+            <!-- STATUS BOXES -->
             <div class="grid grid-cols-2 gap-4 mb-6 text-center">
                 <div class="status-box-3d inset-3d border-b-2 border-emerald-400">
-                    <span class="text-emerald-600 text-[14px] font-black uppercase mb-1">လွတ်</span>
+                    <span class="text-emerald-600 text-[14px] font-black uppercase mb-1">လွတ်သည်</span>
                     <span id="available-count" class="text-3xl font-black text-slate-700">၀</span>
                 </div>
                 <div class="status-box-3d inset-3d border-b-2 border-rose-400">
-                    <span class="text-rose-600 text-[14px] font-black uppercase mb-1">တည်းနေ</span>
+                    <span class="text-rose-600 text-[14px] font-black uppercase mb-1">လူရှိသည်</span>
                     <span id="occupied-count" class="text-3xl font-black text-slate-700">၀</span>
                 </div>
             </div>
 
+            <!-- ROOM GRID -->
             <div id="room-grid" class="grid grid-cols-2 gap-4 pb-8"></div>
 
             <div class="mt-12 mb-6 flex items-center gap-3">
@@ -158,272 +232,412 @@
             <div id="booking-grid" class="grid grid-cols-2 gap-3 pb-24"></div>
         </div>
 
-        <!-- MODALS -->
+        <!-- Room Modal -->
         <div id="edit-modal" class="custom-modal">
             <div class="modal-content">
                 <div class="flex justify-between items-center mb-5 text-left">
-                    <h2 id="modal-room-id" class="text-3xl font-black text-slate-800 uppercase italic">အခန်း ---</h2>
-                    <button onclick="closeEditModal()" class="bg-slate-100 p-2 rounded-full text-slate-400"><i data-lucide="x" size="20"></i></button>
+                    <h2 id="modal-room-id" class="text-3xl font-black text-slate-800 uppercase italic leading-none">အခန်း ---</h2>
+                    <button type="button" onclick="closeEditModal()" class="bg-slate-100 p-2 rounded-full text-slate-400 active:scale-75 transition-transform"><i data-lucide="x" size="20"></i></button>
                 </div>
                 <div class="space-y-5 text-left">
-                    <div class="grid grid-cols-2 gap-3 p-1 bg-slate-100 rounded-xl">
-                        <button id="btn-available" onclick="setTempStatus('Available')" class="py-3.5 rounded-lg font-black text-[11px] uppercase">လွတ်</button>
-                        <button id="btn-occupied" onclick="setTempStatus('Occupied')" class="py-3.5 rounded-lg font-black text-[11px] uppercase">တည်းနေ</button>
+                    <div class="grid grid-cols-2 gap-3 p-1 bg-slate-100 rounded-xl border border-white shadow-inner">
+                        <button type="button" id="btn-available" onclick="setTempStatus('Available')" class="py-3.5 rounded-lg font-black text-[11px] uppercase text-center">လွတ်သည်</button>
+                        <button type="button" id="btn-occupied" onclick="setTempStatus('Occupied')" class="py-3.5 rounded-lg font-black text-[11px] uppercase text-center">လူရှိသည်</button>
                     </div>
-                    <input id="input-name" type="text" placeholder="အမည် ရိုက်ထည့်ပါ">
-                    <input id="input-extra" type="number" placeholder="ရေသန့်ဖိုး" class="!border-blue-200">
-                    <input id="input-price" type="number" placeholder="အခန်းခ" class="text-indigo-600 text-4xl">
+                    <div><label class="text-[10px] font-black text-slate-400 uppercase ml-4 mb-1 block">ဧည့်သည်အမည်</label><input id="input-name" type="text" placeholder="အမည် ရိုက်ထည့်ပါ"></div>
+                    <div><label class="text-[10px] font-black text-blue-500 uppercase ml-4 mb-1 block">ရေသန့်/ENERGY DRINK(KYATS)</label><input id="input-extra" type="number" placeholder="0" class="!border-blue-200"></div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase ml-4 mb-1 block" style="color: #059669;">အခန်းခ(Room fee)</label>
+                        <input id="input-price" type="number" placeholder="0" class="font-black text-indigo-600 text-4xl !h-[60px]">
+                        <div class="grid grid-cols-5 gap-1.5 mt-3">
+                            <button type="button" onclick="setQuickPrice(20000)" class="quick-btn">20k</button>
+                            <button type="button" onclick="setQuickPrice(35000)" class="quick-btn">35k</button>
+                            <button type="button" onclick="setQuickPrice(40000)" class="quick-btn">40k</button>
+                            <button type="button" onclick="setQuickPrice(45000)" class="quick-btn">45k</button>
+                            <button type="button" onclick="setQuickPrice(60000)" class="quick-btn">60k</button>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <input id="input-time" type="text" placeholder="အဝင်အချိန်">
-                        <input id="input-note" type="text" placeholder="မှတ်ချက်" readonly>
+                        <div><label class="text-[9px] font-black text-slate-400 uppercase ml-4 block">အဝင်အချိန်*</label><input id="input-time" type="text" placeholder="9:30 AM" class="!h-[55px] !text-lg"></div>
+                        <div><label class="text-[9px] font-black text-slate-400 uppercase ml-4 block">မှတ်ချက်*</label><input id="input-note" type="text" placeholder="ရွေးချယ်ပါ" readonly class="!h-[55px]"></div>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="setQuickNote('အချိန်ပိုင်း')" class="quick-btn flex-1 py-4">အချိန်ပိုင်း</button>
-                        <button onclick="setQuickNote('တနေကုန်')" class="quick-btn flex-1 py-4">တနေကုန်</button>
-                        <button onclick="setQuickNote('ညအိပ်')" class="quick-btn flex-1 py-4">ညအိပ်</button>
+                        <button type="button" onclick="setQuickNote('အချိန်ပိုင်း')" class="quick-btn flex-1 py-4 text-[13px]">အချိန်ပိုင်း</button>
+                        <button type="button" onclick="setQuickNote('တနေကုန်')" class="quick-btn flex-1 py-4 text-[13px]">တနေကုန်</button>
+                        <button type="button" onclick="setQuickNote('ညအိပ်')" class="quick-btn flex-1 py-4 text-[13px]">ညအိပ်</button>
                     </div>
                 </div>
                 <div class="flex gap-4 mt-8">
-                    <button onclick="confirmSave('room')" class="flex-1 save-btn shadow-md">သိမ်းဆည်းမည်</button>
-                    <button onclick="showDeleteConfirm()" class="w-16 h-[75px] bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center"><i data-lucide="trash-2" size="28"></i></button>
+                    <button type="button" onclick="confirmSave('room')" class="flex-1 save-btn shadow-md active:scale-95 transition-transform">သိမ်းဆည်းမည်</button>
+                    <button type="button" onclick="showDeleteConfirm()" class="w-16 h-[75px] bg-rose-50 text-rose-500 border border-rose-100 rounded-2xl flex items-center justify-center active:scale-90 shadow-sm transition-transform"><i data-lucide="trash-2" size="28"></i></button>
                 </div>
             </div>
         </div>
 
+        <!-- Booking Modal -->
         <div id="booking-modal" class="custom-modal">
-            <div class="modal-content">
+            <div class="modal-content !mt-[40px]">
                 <div class="flex justify-between items-center mb-6 text-left">
-                    <h2 id="booking-room-id" class="text-3xl font-black text-yellow-600 italic">Booking ---</h2>
-                    <button onclick="closeBookingModal()" class="bg-slate-100 p-2 rounded-full"><i data-lucide="x" size="20"></i></button>
+                    <h2 id="booking-room-id" class="text-3xl font-black text-yellow-600 uppercase italic leading-none">Booking ---</h2>
+                    <button type="button" onclick="closeBookingModal()" class="bg-slate-100 p-2 rounded-full text-slate-400 active:scale-75"><i data-lucide="x" size="20"></i></button>
                 </div>
-                <input id="input-booking-name" type="text" placeholder="အမည်" class="mb-4">
-                <input id="input-booking-time" type="text" placeholder="အချိန်">
-                <button onclick="confirmSave('booking')" class="save-btn !bg-yellow-500 mt-8">Booking စာရင်းမှတ်မည်</button>
-                <button onclick="askClearBooking()" class="w-full mt-4 py-4 text-rose-500 font-bold uppercase text-[11px]">Booking ဖျက်သိမ်းမည်</button>
+                <div class="space-y-6 text-left">
+                    <div><label class="text-[10px] font-black text-slate-400 uppercase ml-4 mb-1 block">လာမည့်ဧည့်သည်အမည်</label><input id="input-booking-name" type="text" placeholder="အမည် ရိုက်ထည့်ပါ"></div>
+                    <div><label class="text-[10px] font-black text-slate-400 uppercase ml-4 mb-1 block">လာမည့်အချိန် (ဥပမာ - 6:00 PM)</label><input id="input-booking-time" type="text" placeholder="6:00 PM"></div>
+                </div>
+                <button type="button" onclick="confirmSave('booking')" class="save-btn !bg-yellow-500 !h-[70px] mt-8 shadow-lg">Booking စာရင်းမှတ်မည်</button>
+                <button type="button" onclick="askClearBooking()" class="w-full mt-4 py-4 text-rose-500 font-bold uppercase text-[11px] text-center border-t border-slate-50">Booking ဖျက်သိမ်းမည်</button>
             </div>
         </div>
 
+        <!-- Confirm Modal -->
         <div id="save-confirm-modal" class="custom-modal">
-            <div class="modal-content">
-                <h3 id="save-context-title" class="text-xl font-black mb-4 text-center uppercase">စာရင်းသိမ်းမည်</h3>
-                <div class="grid grid-cols-2 gap-2 mb-8">
-                    <button onclick="selectStaff('Owner')" class="staff-btn">Owner</button>
-                    <button onclick="selectStaff('Oaak Phyo')" class="staff-btn">Oaak Phyo</button>
-                    <button onclick="selectStaff('Manager')" class="staff-btn">Manager</button>
-                    <button onclick="selectStaff('Night Clerk')" class="staff-btn">Night Clerk</button>
-                </div>
-                <button id="final-save-btn" disabled onclick="actualSaveAction()" class="w-full py-5 save-btn shadow-lg">ဟုတ်ကဲ့ သိမ်းမည်</button>
-                <button onclick="hideSaveConfirm()" class="w-full py-2 text-slate-400 font-bold text-[10px] mt-2">မမှတ်တော့ပါ</button>
-            </div>
-        </div>
-
-        <div id="delete-confirm-modal" class="custom-modal">
-            <div class="modal-content">
-                <h3 class="text-xl font-black mb-4 text-rose-600 text-center uppercase">အခန်းဖျက်မည်</h3>
-                <input id="checkout-time-input" type="text" placeholder="ထွက်ချိန်" oninput="validateCheckout()" class="mb-6">
-                <button id="final-delete-btn" disabled onclick="clearRoomAction()" class="w-full py-5 bg-rose-500 text-white rounded-2xl font-black">ဟုတ်ကဲ့ ဖျက်မည်</button>
-                <button onclick="hideDeleteConfirm()" class="w-full py-2 text-slate-400 font-bold text-[10px]">မဖျက်တော့ပါ</button>
-            </div>
-        </div>
-
-        <div id="password-modal" class="custom-modal">
-            <div class="modal-content">
-                <h3 class="text-lg font-black mb-4 text-center uppercase">မင်္ဂလာပါ</h3>
-                <input id="security-password" type="password" placeholder="••••••" class="mb-6">
-                <div class="flex gap-4">
-                    <button onclick="closePasswordModal()" class="flex-1 text-slate-400 font-bold text-[10px]">Cancel</button>
-                    <button id="pass-confirm-btn" class="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-bold text-[10px]">Unlock</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="custom-alert-modal" class="custom-modal">
-            <div class="modal-content">
-                <h3 class="text-lg font-black mb-2 text-center">သတိပေးချက်</h3>
-                <p id="custom-alert-text" class="text-slate-500 font-bold mb-8 text-center"></p>
-                <button onclick="closeCustomAlert()" class="w-full py-4 bg-slate-800 text-white rounded-xl font-black">နားလည်ပါပြီ</button>
-            </div>
-        </div>
-
-        <div id="income-display-modal" class="custom-modal">
-            <div class="modal-content !max-w-[95%]">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <p class="text-[10px] font-black uppercase text-slate-400">Total Revenue</p>
-                        <h3 id="display-total-income" class="text-5xl font-black text-indigo-600">၀၀</h3>
+            <div class="modal-content !mb-0 !mt-[100px]">
+                <h3 id="save-context-title" class="text-xl font-black mb-4 text-slate-800 uppercase text-center">စာရင်းသိမ်းမည်</h3>
+                <div class="space-y-4 mb-8 text-center">
+                    <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block text-center">စာရင်းမှတ်သူအမည် ရွေးပါ*</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="selectStaff('Owner')" class="staff-btn">Owner</button>
+                        <button type="button" onclick="selectStaff('Oaak Phyo')" class="staff-btn">Oaak Phyo</button>
+                        <button type="button" onclick="selectStaff('Manager')" class="staff-btn">Manager</button>
+                        <button type="button" onclick="selectStaff('Night Clerk')" class="staff-btn">Night Clerk</button>
                     </div>
-                    <button onclick="closeIncomeModal()" class="text-slate-300"><i data-lucide="x" size="24"></i></button>
                 </div>
-                <div class="overflow-x-auto max-h-[60vh] bg-white">
+                <button type="button" id="final-save-btn" disabled onclick="actualSaveAction()" class="w-full py-5 save-btn mb-3 shadow-lg active:scale-95">ဟုတ်ကဲ့ သိမ်းမည်</button>
+                <button type="button" onclick="hideSaveConfirm()" class="w-full py-2 text-slate-400 font-bold uppercase text-[10px] text-center">မမှတ်တော့ပါ</button>
+            </div>
+        </div>
+
+        <!-- Room Trash Confirm -->
+        <div id="delete-confirm-modal" class="custom-modal">
+            <div class="modal-content !mb-0">
+                <h3 class="text-xl font-black mb-4 text-rose-600 uppercase text-center">အခန်းဖျက်မည်</h3>
+                <div class="mb-6 text-center">
+                    <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block text-center">ထွက်ချိန် (ဥပမာ- 2:30 PM)*</label>
+                    <input id="checkout-time-input" type="text" placeholder="ရိုက်ထည့်ပါ" oninput="validateCheckout()" class="text-center font-black">
+                </div>
+                <button type="button" id="final-delete-btn" disabled onclick="clearRoomAction()" class="w-full py-5 bg-rose-500 text-white rounded-2xl font-black mb-3 shadow-lg active:scale-95">ဟုတ်ကဲ့ ဖျက်မည်</button>
+                <button type="button" onclick="hideDeleteConfirm()" class="w-full py-2 text-slate-400 font-bold uppercase text-[10px] text-center">မဖျက်တော့ပါ</button>
+            </div>
+        </div>
+
+        <!-- Password Modal -->
+        <div id="password-modal" class="custom-modal">
+            <div class="modal-content !mb-0">
+                <h3 class="text-lg font-black mb-4 uppercase text-center">မင်္ဂလာပါ</h3>
+                <input id="security-password" type="password" placeholder="••••••" class="!text-2xl mb-6 text-center">
+                <div class="flex gap-4">
+                    <button type="button" onclick="closePasswordModal()" class="flex-1 font-bold text-slate-400 uppercase text-[10px] text-center">Cancel</button>
+                    <button type="button" id="pass-confirm-btn" class="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-bold uppercase text-[10px] text-center transition-colors">Unlock</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Alert Modal -->
+        <div id="custom-alert-modal" class="custom-modal">
+            <div class="modal-content !mb-0 !mt-32">
+                <div class="bg-rose-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500"><i data-lucide="alert-circle" size="32"></i></div>
+                <h3 class="text-lg font-black mb-2 text-slate-800 uppercase text-center">သတိပေးချက်</h3>
+                <p id="custom-alert-text" class="text-slate-500 font-bold mb-8 px-4 text-center leading-relaxed"></p>
+                <button type="button" onclick="closeCustomAlert()" class="w-full py-4 bg-slate-800 text-white rounded-xl font-black shadow-md uppercase">နားလည်ပါပြီ</button>
+            </div>
+        </div>
+
+        <!-- Income Logs Modal (Corrected for mobile overlapping) -->
+        <div id="income-display-modal" class="custom-modal">
+            <div class="modal-content !mb-0 !p-5 !max-w-[95%]">
+                <div class="flex justify-between items-start mb-6 text-left">
+                    <div>
+                        <p class="text-slate-400 text-[10px] font-black uppercase">Daily Revenue Total</p>
+                        <h3 id="display-total-income" class="text-5xl font-black text-indigo-600 leading-none mt-1 tracking-tighter">၀၀</h3>
+                    </div>
+                    <button type="button" onclick="closeIncomeModal()" class="text-slate-300 active:scale-75 transition-transform"><i data-lucide="x" size="24"></i></button>
+                </div>
+                <div class="overflow-x-auto max-h-[60vh] rounded-2xl bg-white">
                     <table class="report-table">
-                        <thead><tr><th>စဉ်/ချိန်</th><th>အခန်း</th><th>ဧည့်သည်</th><th>In/Out</th><th>ရငွေ</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th style="width: 14%;">စဉ်/ချိန်</th>
+                                <th style="width: 12%;">အခန်း</th>
+                                <th style="width: 28%;">ဧည့်သည်</th>
+                                <th style="width: 22%;">In/Out</th>
+                                <th style="width: 24%;">ရငွေ</th>
+                            </tr>
+                        </thead>
                         <tbody id="income-logs-body"></tbody>
                     </table>
                 </div>
-                <div id="footer-date" class="mt-6 text-orange-600 text-[13px] font-black text-center italic">---</div>
+                <div id="footer-date" class="mt-6 text-orange-600 text-[13px] font-black italic text-center">---</div>
             </div>
         </div>
+        
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="hidden fixed inset-0 bg-white z-[5500] flex flex-col items-center justify-center p-8 text-center"><div class="bg-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-xl"><i data-lucide="cpu" class="text-white" size="32"></i></div><h2 class="text-xl font-black mb-6 text-slate-800 uppercase italic">System Setup</h2><input id="sync-key-input" type="text" placeholder="ID ရိုက်ပါ" class="text-center mb-6"><button type="button" onclick="saveSyncKey()" class="w-full max-w-xs save-btn shadow-xl transition-all">Connect Now</button></div>
 
-        <div id="setup-screen" class="hidden fixed inset-0 bg-white z-[5500] flex flex-col items-center justify-center p-8 text-center">
-            <h2 class="text-xl font-black mb-6 italic">System Setup</h2>
-            <input id="sync-key-input" type="text" placeholder="ID ရိုက်ပါ" class="mb-6">
-            <button onclick="saveSyncKey()" class="w-full max-w-xs save-btn">Connect Now</button>
-        </div>
-
-        <div id="income-trigger" class="hidden fixed bottom-[55px] right-[20px] z-[4000]">
-            <button onclick="showPasswordPrompt('income')" class="w-14 h-14 bg-white text-indigo-600 rounded-2xl shadow-xl flex items-center justify-center border border-slate-100 transition-transform"><i data-lucide="clipboard-list" size="28"></i></button>
-        </div>
+        <div id="income-trigger" class="hidden fixed bottom-[55px] right-[20px] z-[4000]"><button type="button" onclick="showPasswordPrompt('income')" class="w-14 h-14 bg-white text-indigo-600 rounded-2xl shadow-xl flex items-center justify-center active:scale-90 border border-slate-100 transition-transform"><i data-lucide="clipboard-list" size="28"></i></button></div>
     </div>
 
     <script>
-        // PWA Manifest
-        const manifest = {
-            "name": "New Star Pro Management",
-            "short_name": "New Star",
-            "start_url": ".",
-            "display": "standalone",
-            "background_color": "#eef2f7",
-            "theme_color": "#4f46e5",
-            "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/3003/3003233.png", "sizes": "512x512", "type": "image/png" }]
-        };
-        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        document.querySelector('#pwa-manifest').setAttribute('href', URL.createObjectURL(blob));
-
-        // SW Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swCode = `self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('fetch', e => e.respondWith(fetch(e.request)));`;
-                const swURL = URL.createObjectURL(new Blob([swCode], {type: 'application/javascript'}));
-                navigator.serviceWorker.register(swURL).catch(err => console.log('SW registration failed', err));
-            });
-        }
-
-        // Logic
-        const PROJECT_ID = 'newstar-hotel-v101'; 
+        const PROJECT_ID = 'lucky1-42661'; 
         const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/rooms`;
-        let rooms = []; let dailyTotal = 0; let logs = []; let lastResetDate = "";
-        let syncID = localStorage.getItem('newstar_v43_clear_id');
-        let saveContext = 'room'; let currentRoomId = null; let tempStatus = 'Available'; let selectedStaffName = "";
+        let rooms = []; let dailyTotal = 0; let logs = [];
+        let lastResetDate = ""; // Logic ၁ - ရက်စွဲမှတ်ရန်
+        let syncID = localStorage.getItem('newstar_v43_clear_id'); 
+        let saveContext = 'room'; 
+        let currentRoomId = null;
+        let tempStatus = 'Available';
+        let selectedStaffName = "";
         let tapCount = 0; let tapTimer;
 
-        function toMmNum(num) { if (!num && num !== 0) return ""; const map = {'0':'၀','1':'၁','2':'၂','3':'၃','4':'၄','5':'၅','6':'၆','7':'၇','8':'၈','9':'၉'}; return String(num).replace(/[0-9]/g, s => map[s]); }
+        function toMmNum(num) {
+            if (num === null || num === undefined) return "";
+            const map = { '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄', '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉' };
+            return String(num).replace(/[0-9]/g, s => map[s]);
+        }
+
         function getTodayStr() { const now = new Date(); return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`; }
 
+        window.showCustomAlert = (msg) => {
+            document.getElementById('custom-alert-text').innerText = msg;
+            document.getElementById('custom-alert-modal').style.display = 'flex';
+            lucide.createIcons();
+        };
+        window.closeCustomAlert = () => document.getElementById('custom-alert-modal').style.display = 'none';
+        window.setQuickPrice = (val) => { document.getElementById('input-price').value = val; };
+        window.setQuickNote = (txt) => { document.getElementById('input-note').value = txt; };
+
         setInterval(() => {
-            const now = new Date(); let h = now.getHours(); let ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+            const now = new Date(); 
+            let h = now.getHours(); 
+            let ap = h >= 12 ? 'PM' : 'AM'; 
+            h = h % 12 || 12;
             const timeVal = `${h}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-            document.getElementById('display-time-val').innerText = toMmNum(timeVal);
-            document.getElementById('display-ampm').innerText = ap;
+            const tEl = document.getElementById('display-time-val');
+            const aEl = document.getElementById('display-ampm');
+            if(tEl) tEl.innerText = toMmNum(timeVal);
+            if(aEl) aEl.innerText = ap;
         }, 1000);
 
         window.openEdit = (id) => {
-            currentRoomId = id; const rData = rooms.find(r => r.id === id); tempStatus = 'Occupied';
+            currentRoomId = id; 
+            const rData = rooms.find(r => r.id === id); 
+            tempStatus = rData.status === 'Occupied' ? 'Occupied' : 'Occupied'; // Default to occupied for edit
+            if (rData.status === 'Available') tempStatus = 'Occupied'; else tempStatus = 'Occupied';
+
             document.getElementById('modal-room-id').innerText = `အခန်း ${toMmNum(id)}`; 
             document.getElementById('input-name').value = rData.name || ''; 
             document.getElementById('input-extra').value = rData.extra || 0; 
             document.getElementById('input-price').value = rData.price || 0; 
             document.getElementById('input-time').value = rData.time || ''; 
             document.getElementById('input-note').value = rData.note || ''; 
-            updateUI(); document.getElementById('edit-modal').style.display = 'flex'; 
+            updateUI(); 
+            document.getElementById('edit-modal').style.display = 'flex'; 
         };
         window.closeEditModal = () => document.getElementById('edit-modal').style.display = 'none';
+
         window.setTempStatus = (s) => { tempStatus = s; updateUI(); };
         function updateUI() {
             const b1 = document.getElementById('btn-available'); const b2 = document.getElementById('btn-occupied');
-            if(tempStatus === 'Available') { b1.className = "py-3.5 rounded-lg font-black bg-emerald-500 text-white flex-1"; b2.className = "py-3.5 rounded-lg font-black bg-white text-slate-400 flex-1 border"; }
-            else { b1.className = "py-3.5 rounded-lg font-black bg-white text-slate-400 flex-1 border"; b2.className = "py-3.5 rounded-lg font-black bg-rose-500 text-white flex-1"; }
+            if(tempStatus === 'Available') { 
+                b1.className = "py-3.5 rounded-lg font-black bg-emerald-500 text-white flex-1 text-[11px] uppercase shadow-sm"; 
+                b2.className = "py-3.5 rounded-lg font-black bg-white text-slate-400 flex-1 text-[11px] uppercase border border-slate-200"; 
+            } else { 
+                b1.className = "py-3.5 rounded-lg font-black bg-white text-slate-400 flex-1 text-[11px] uppercase border border-slate-200"; 
+                b2.className = "py-3.5 rounded-lg font-black bg-rose-500 text-white flex-1 text-[11px] uppercase shadow-sm"; 
+            }
         }
 
         window.openBookingEntry = (id) => {
-            currentRoomId = id; const rData = rooms.find(r => r.id === id);
-            document.getElementById('booking-room-id').innerText = `Booking ${toMmNum(id)}`;
+            currentRoomId = id; 
+            const rData = rooms.find(r => r.id === id);
+            document.getElementById('booking-room-id').innerText = `Booking အခန်း ${toMmNum(id)}`;
             document.getElementById('input-booking-name').value = rData.bookingGuest || '';
             document.getElementById('input-booking-time').value = rData.bookingTime || '';
             document.getElementById('booking-modal').style.display = 'flex';
         };
         window.closeBookingModal = () => document.getElementById('booking-modal').style.display = 'none';
-        window.confirmSave = (c) => { saveContext = c; selectedStaffName = ""; document.getElementById('final-save-btn').disabled = true; document.querySelectorAll('.staff-btn').forEach(b => b.classList.remove('selected')); document.getElementById('save-confirm-modal').style.display = 'flex'; };
+
+        window.askClearBooking = async () => {
+            const idx = rooms.findIndex(r => r.id === currentRoomId);
+            rooms[idx].bookingGuest = ''; rooms[idx].bookingTime = ''; rooms[idx].bookingStaff = '';
+            render(); await pushToCloud(); closeBookingModal();
+        };
+
+        window.confirmSave = (context) => {
+            saveContext = context;
+            if (context === 'room' && tempStatus === 'Occupied') { 
+                const tV = document.getElementById('input-time').value.trim(); 
+                const nV = document.getElementById('input-note').value.trim(); 
+                const pV = parseInt(document.getElementById('input-price').value) || 0;
+                if (!tV || !nV) { showCustomAlert("အချိန် နှင့် မှတ်ချက် ကို မဖြစ်မနေ ထည့်ပေးပါ"); return; } 
+                if (pV < 20000) { showCustomAlert("အနည်းဆုံး ၂၀,၀၀၀ ကျပ် မှတ်ရပါမည်"); return; } 
+            }
+            if (context === 'booking') {
+                const bN = document.getElementById('input-booking-name').value.trim();
+                const bT = document.getElementById('input-booking-time').value.trim();
+                if (!bN || !bT) { showCustomAlert("Booking အမည်နှင့် အချိန်ကို ထည့်သွင်းပါ"); return; }
+            }
+            selectedStaffName = ""; 
+            document.getElementById('save-context-title').innerText = context === 'room' ? 'အခန်းစာရင်းမှတ်မည်' : 'Booking စာရင်းမှတ်မည်';
+            document.getElementById('final-save-btn').disabled = true; 
+            document.querySelectorAll('.staff-btn').forEach(btn => btn.classList.remove('selected')); 
+            document.getElementById('save-confirm-modal').style.display = 'flex';
+        };
 
         window.actualSaveAction = async () => {
-            if(!selectedStaffName) return; hideSaveConfirm();
-            const idx = rooms.findIndex(r => r.id === currentRoomId); const today = getTodayStr();
+            if(!selectedStaffName) return; 
+            hideSaveConfirm();
+            const idx = rooms.findIndex(r => r.id === currentRoomId);
+            const today = getTodayStr();
+            
             if (saveContext === 'room') {
-                const nP = parseInt(document.getElementById('input-price').value) || 0; const nE = parseInt(document.getElementById('input-extra').value) || 0;
-                const iT = document.getElementById('input-time').value; const gN = document.getElementById('input-name').value || 'ဧည့်သည်'; const nV = document.getElementById('input-note').value;
-                const now = new Date(); const cT = `${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}${now.getHours() >= 12 ? 'PM' : 'AM'}`;
-                if (rooms[idx].status === 'Available' && tempStatus === 'Occupied') { 
-                    dailyTotal += (nP + nE); logs.push({ room: currentRoomId, guest: gN, in: iT, out: '-', price: nP, extra: nE, staff: selectedStaffName, active: true, logTime: cT }); 
+                const nP = parseInt(document.getElementById('input-price').value) || 0; 
+                const nE = parseInt(document.getElementById('input-extra').value) || 0;
+                const iT = document.getElementById('input-time').value.trim(); 
+                const gN = document.getElementById('input-name').value.trim() || 'ဧည့်သည်'; 
+                const nV = document.getElementById('input-note').value;
+                const oldS = rooms[idx].status; 
+                const now = new Date(); 
+                const cT = `${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}${now.getHours() >= 12 ? 'PM' : 'AM'}`;
+
+                if (oldS === 'Available' && tempStatus === 'Occupied') { 
+                    dailyTotal += (nP + nE);
+                    logs.push({ room: currentRoomId, guest: gN, in: iT, out: '-', price: nP, extra: nE, staff: selectedStaffName, active: true, logTime: cT }); 
                     rooms[idx] = { ...rooms[idx], status: 'Occupied', name: gN, price: nP, extra: nE, time: iT, note: nV, staff: selectedStaffName, checkInDate: today, lastNoonChargeDate: today }; 
-                } else { rooms[idx] = { ...rooms[idx], status: tempStatus, name: gN, price: nP, extra: nE, time: iT, note: nV, staff: selectedStaffName }; }
+                } else {
+                    rooms[idx] = { ...rooms[idx], status: tempStatus, name: gN, price: nP, extra: nE, time: iT, note: nV, staff: selectedStaffName }; 
+                }
                 closeEditModal();
             } else {
-                rooms[idx].bookingGuest = document.getElementById('input-booking-name').value;
-                rooms[idx].bookingTime = document.getElementById('input-booking-time').value;
+                rooms[idx].bookingGuest = document.getElementById('input-booking-name').value.trim();
+                rooms[idx].bookingTime = document.getElementById('input-booking-time').value.trim();
                 rooms[idx].bookingStaff = selectedStaffName;
                 closeBookingModal();
             }
             render(); await pushToCloud();
         };
 
-        window.showDeleteConfirm = () => { document.getElementById('checkout-time-input').value = ""; document.getElementById('final-delete-btn').disabled = true; document.getElementById('delete-confirm-modal').style.display = 'flex'; };
+        window.showDeleteConfirm = () => {
+            document.getElementById('checkout-time-input').value = ""; 
+            document.getElementById('final-delete-btn').disabled = true; 
+            document.getElementById('delete-confirm-modal').style.display = 'flex'; 
+        };
         window.hideDeleteConfirm = () => document.getElementById('delete-confirm-modal').style.display = 'none';
-        window.validateCheckout = () => { document.getElementById('final-delete-btn').disabled = !document.getElementById('checkout-time-input').value.trim(); };
+        window.validateCheckout = () => { document.getElementById('final-delete-btn').disabled = (document.getElementById('checkout-time-input').value.trim().length < 1); };
+        
         window.clearRoomAction = async () => { 
-            const cT = document.getElementById('checkout-time-input').value; const idx = rooms.findIndex(r => r.id === currentRoomId);
-            const aL = logs.findLast(l => l.room === currentRoomId && l.active); if(aL) { aL.out = cT; aL.active = false; }
+            const cT = document.getElementById('checkout-time-input').value.trim(); if(!cT) return; 
+            const idx = rooms.findIndex(r => r.id === currentRoomId);
+            const aL = logs.findLast(l => l.room === currentRoomId && l.active); 
+            if(aL) { aL.out = cT; aL.active = false; }
             rooms[idx] = { ...rooms[idx], status: 'Available', name: '', price: 0, extra: 0, time: '', note: '', staff: '', checkInDate: '', lastNoonChargeDate: '' }; 
-            render(); await pushToCloud(); hideDeleteConfirm(); closeEditModal();
+            render(); await pushToCloud(); 
+            hideDeleteConfirm(); closeEditModal();
         };
 
+        // Logic စနစ်သစ်များ (Reset & Noon Charge)
         async function processSystemLogic() {
-            const today = getTodayStr(); let changed = false;
-            if (lastResetDate && lastResetDate !== today) { dailyTotal = 0; logs = []; lastResetDate = today; changed = true; }
-            else if (!lastResetDate) { lastResetDate = today; changed = true; }
-            if (new Date().getHours() >= 12) {
-                rooms.forEach(r => {
-                    if (r.status === 'Occupied' && r.note === 'ညအိပ်' && r.checkInDate < today && r.lastNoonChargeDate !== today) {
-                        dailyTotal += parseInt(r.price); logs.push({ room: r.id, guest: r.name, in: "Noon Charge", out: "-", price: r.price, extra: 0, staff: "SYSTEM", active: true, logTime: "12:00PM" });
-                        r.lastNoonChargeDate = today; changed = true;
+            const today = getTodayStr();
+            let changed = false;
+
+            // ၁။ နေ့စဉ် Reset Logic
+            if (lastResetDate && lastResetDate !== today) {
+                dailyTotal = 0;
+                logs = [];
+                lastResetDate = today;
+                changed = true;
+            } else if (!lastResetDate) {
+                lastResetDate = today;
+                changed = true;
+            }
+
+            // ၂။ Noon Charge Logic (နေ့လယ် ၁၂ နာရီကျော်ရင် အလိုအလျောက် ပေါင်းထည့်မည်)
+            const now = new Date();
+            if (now.getHours() >= 12) {
+                rooms.forEach(room => {
+                    if (room.status === 'Occupied' && room.note === 'ညအိပ်') {
+                        // အကယ်၍ check-in က ဒီနေ့မဟုတ်ဘူးဆိုရင် (အရင်ရက်ကဖြစ်ရမယ်)
+                        // ပြီးတော့ ဒီနေ့အတွက် noon charge မပေါင်းရသေးရင်
+                        if (room.checkInDate && room.checkInDate < today && room.lastNoonChargeDate !== today) {
+                            const addPrice = parseInt(room.price) || 0;
+                            dailyTotal += addPrice;
+                            logs.push({ 
+                                room: room.id, 
+                                guest: room.name, 
+                                in: "Noon Charge", 
+                                out: "-", 
+                                price: addPrice, 
+                                extra: 0, 
+                                staff: "SYSTEM", 
+                                active: true, 
+                                logTime: "12:00PM" 
+                            });
+                            room.lastNoonChargeDate = today;
+                            changed = true;
+                        }
                     }
                 });
             }
-            if (changed) { render(); await pushToCloud(); }
+
+            if (changed) {
+                render();
+                await pushToCloud();
+            }
         }
 
-        window.saveSyncKey = () => { const val = document.getElementById('sync-key-input').value.trim(); if(val) { localStorage.setItem('newstar_v43_clear_id', val); location.reload(); } };
-        window.selectStaff = (name) => { selectedStaffName = name; document.querySelectorAll('.staff-btn').forEach(b => b.classList.toggle('selected', b.innerText === name)); document.getElementById('final-save-btn').disabled = false; };
-        window.handleTitleTap = () => { tapCount++; clearTimeout(tapTimer); if(tapCount === 7) { tapCount = 0; showPasswordPrompt('setup'); } else { tapTimer = setTimeout(() => tapCount = 0, 3000); } }
+        window.handleTitleTap = () => { tapCount++; clearTimeout(tapTimer); if(tapCount === 7) { tapCount = 0; showPasswordPrompt('setup'); } else { tapTimer = setTimeout(() => { tapCount = 0; }, 3000); } }
         window.showPasswordPrompt = (type) => {
-            const modal = document.getElementById('password-modal'); const pass = document.getElementById('security-password'); pass.value = '';
+            const modal = document.getElementById('password-modal'); const passInput = document.getElementById('security-password'); passInput.value = '';
             document.getElementById('pass-confirm-btn').onclick = () => {
-                if (type === 'setup' && pass.value === "Newstar2201949402555060") { closePasswordModal(); document.getElementById('sync-key-input').value = syncID || ''; document.getElementById('setup-screen').classList.remove('hidden'); }
-                else if (type === 'income' && pass.value === "May2") { closePasswordModal(); buildIncomeReport(); document.getElementById('income-display-modal').style.display = 'flex'; }
+                const val = passInput.value;
+                if (type === 'setup' && val === "Newstar2201949402555060") { closePasswordModal(); document.getElementById('sync-key-input').value = syncID || ''; document.getElementById('setup-screen').classList.remove('hidden'); }
+                else if (type === 'income' && val === "May2") { closePasswordModal(); buildIncomeReport(); document.getElementById('income-display-modal').style.display = 'flex'; }
             };
-            modal.style.display = 'flex'; pass.focus();
+            modal.style.display = 'flex'; passInput.focus();
         };
         window.closePasswordModal = () => document.getElementById('password-modal').style.display = 'none';
+        window.saveSyncKey = () => { const val = document.getElementById('sync-key-input').value.trim(); if(val) { localStorage.setItem('newstar_v43_clear_id', val); location.reload(); } };
+        window.closeIncomeModal = () => document.getElementById('income-display-modal').style.display = 'none';
+        window.hideSaveConfirm = () => document.getElementById('save-confirm-modal').style.display = 'none';
+        window.selectStaff = (name) => { selectedStaffName = name; document.querySelectorAll('.staff-btn').forEach(btn => btn.classList.toggle('selected', btn.innerText === name)); document.getElementById('final-save-btn').disabled = false; };
 
         function render() {
             const rG = document.getElementById('room-grid'); rG.innerHTML = '';
             const bG = document.getElementById('booking-grid'); bG.innerHTML = '';
             let avail = 0; let occu = 0;
+
             rooms.forEach(room => {
                 const isOccu = room.status === 'Occupied'; if(!isOccu) avail++; else occu++;
-                const card = document.createElement('button'); card.className = `room-card raised-3d ${isOccu ? 'card-occupied' : ''}`;
-                card.onclick = () => openEdit(room.id); card.innerHTML = `
+                const card = document.createElement('button'); 
+                card.className = `room-card raised-3d ${isOccu ? 'card-occupied' : ''}`;
+                card.onclick = () => openEdit(room.id); 
+                card.innerHTML = `
                 ${isOccu && room.staff ? `<span class="card-staff-badge">${room.staff}</span>` : ''}
-                <div class="flex justify-between items-start w-full relative"><span class="card-room-id">${toMmNum(room.id)}</span>${isOccu ? `<div class="flex flex-col items-end gap-1"><span class="card-note-badge">${room.note}</span><span class="card-price-badge">${toMmNum(parseInt(room.price).toLocaleString())}</span></div>` : '<div class="mt-2 opacity-10"><i data-lucide="circle" size="18"></i></div>'}</div>
-                <div class="w-full text-left"><p class="card-guest-name truncate ${isOccu ? 'text-slate-700' : 'text-emerald-500'}">${isOccu ? (room.name || 'ဧည့်သည်') : 'လွတ်'}</p></div>`;
+                <div class="flex justify-between items-start w-full relative">
+                    <span class="card-room-id">${toMmNum(room.id)}</span>
+                    ${isOccu ? `<div class="flex flex-col items-end gap-1"><span class="card-note-badge">${room.note || 'Active'}</span><span class="card-price-badge">${toMmNum(parseInt(room.price).toLocaleString())}</span></div>` : '<div class="mt-2 opacity-10"><i data-lucide="circle" size="18" class="text-slate-400"></i></div>'}
+                </div>
+                <div class="w-full text-left"><p class="card-guest-name truncate ${isOccu ? 'text-slate-700' : 'text-emerald-500'}">${isOccu ? (room.name || 'ဧည့်သည်') : 'လွတ်'}</p></div>`; 
                 rG.appendChild(card);
-                const bCard = document.createElement('div'); bCard.className = `booking-summary-card ${room.bookingTime ? 'booking-active' : ''}`;
-                bCard.onclick = () => openBookingEntry(room.id); bCard.innerHTML = `
-                <div class="flex justify-between items-start"><span class="text-[14px] font-black italic">အခန်း ${toMmNum(room.id)}</span>${room.bookingTime ? '<i data-lucide="calendar-check" size="16" class="text-yellow-600"></i>' : ''}</div>
-                <div class="mt-1 text-left"><p class="text-[11px] font-black truncate">${room.bookingGuest || '---'}</p><p class="text-[10px] font-bold text-slate-500">${toMmNum(room.bookingTime || '')}</p></div>
-                ${room.bookingStaff ? `<div class="text-right mt-1"><span class="text-[8px] font-black bg-slate-100 px-2 py-0.5 rounded text-slate-500 uppercase">By: ${room.bookingStaff}</span></div>` : '<div></div>'}`;
+                const bCard = document.createElement('div');
+                bCard.className = `booking-summary-card ${room.bookingTime ? 'booking-active' : ''}`;
+                bCard.onclick = () => openBookingEntry(room.id);
+                bCard.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="text-[14px] font-black italic text-slate-800">အခန်း ${toMmNum(room.id)}</span>
+                        ${room.bookingTime ? '<i data-lucide="calendar-check" size="16" class="text-yellow-600"></i>' : ''}
+                    </div>
+                    <div class="mt-1 text-left">
+                        <p class="text-[11px] font-black truncate text-slate-700">${room.bookingGuest || '---'}</p>
+                        <p class="text-[10px] font-bold text-slate-500">${room.bookingTime ? toMmNum(room.bookingTime) : ''}</p>
+                    </div>
+                    ${room.bookingStaff ? `<div class="text-right mt-1"><span class="text-[8px] font-black bg-slate-100 px-2 py-0.5 rounded text-slate-500 uppercase tracking-tighter">By: ${room.bookingStaff}</span></div>` : '<div></div>'}`;
                 bG.appendChild(bCard);
             });
-            document.getElementById('available-count').innerText = toMmNum(avail); document.getElementById('occupied-count').innerText = toMmNum(occu);
-            document.getElementById('display-total-income').innerText = toMmNum(parseInt(dailyTotal).toLocaleString()); lucide.createIcons();
+            document.getElementById('available-count').innerText = toMmNum(avail); 
+            document.getElementById('occupied-count').innerText = toMmNum(occu); 
+            document.getElementById('display-total-income').innerText = toMmNum(parseInt(dailyTotal).toLocaleString()); 
+            lucide.createIcons();
         }
 
         async function fetchAllRooms() {
@@ -431,31 +645,75 @@
             try {
                 const res = await fetch(`${BASE_URL}/${syncID}?t=${Date.now()}`);
                 if(res.ok) {
-                    const d = await res.json(); const cd = JSON.parse(d.fields.payload.stringValue);
-                    rooms = cd.rooms; dailyTotal = cd.dailyTotal || 0; logs = cd.logs || []; lastResetDate = cd.lastResetDate || "";
-                    localStorage.setItem('cache_v101_final_' + syncID, JSON.stringify(cd)); render(); await processSystemLogic();
+                    const d = await res.json(); 
+                    const cd = JSON.parse(d.fields.payload.stringValue);
+                    rooms = cd.rooms; 
+                    dailyTotal = cd.dailyTotal || 0; 
+                    logs = cd.logs || [];
+                    lastResetDate = cd.lastResetDate || "";
+                    localStorage.setItem('cache_v101_final_' + syncID, JSON.stringify(cd)); 
+                    render();
+                    await processSystemLogic(); // ဒေတာယူပြီးတိုင်း logic စစ်မည်
                 }
             } catch (e) {}
         }
-        async function pushToCloud() { const body = { fields: { payload: { stringValue: JSON.stringify({rooms, dailyTotal, logs, lastResetDate}) } } }; await fetch(`${BASE_URL}/${syncID}`, { method: 'PATCH', body: JSON.stringify(body) }); }
+
+        async function pushToCloud() { 
+            const body = { fields: { payload: { stringValue: JSON.stringify({rooms, dailyTotal, logs, lastResetDate}) } } }; 
+            await fetch(`${BASE_URL}/${syncID}`, { method: 'PATCH', body: JSON.stringify(body) }); 
+        }
+
         function createDefaults() { const ids = [101,102,103,104,105,106,107,108,109,201,202,203,204,205,206,207,208]; return ids.map(id => ({ id, status: 'Available', name: '', price: 0, extra: 0, time: '', note: '', staff: '', bookingGuest: '', bookingTime: '', bookingStaff: '', checkInDate: '', lastNoonChargeDate: '' })); }
+
         function buildIncomeReport() {
-            const body = document.getElementById('income-logs-body'); body.innerHTML = ''; if(!logs.length) { body.innerHTML = '<tr><td colspan="5" class="py-16 text-slate-400 text-center font-bold">မှတ်တမ်းမရှိသေးပါ။</td></tr>'; return; }
-            logs.forEach((log, i) => { 
-                const row = document.createElement('tr'); const tLog = (parseInt(log.price)||0) + (parseInt(log.extra)||0);
-                row.innerHTML = `<td class="text-center"><span class="font-black text-[10px] block">#${toMmNum(i+1)}</span><span class="small-log">${toMmNum(log.logTime||'--')}</span></td><td class="text-center font-black">${toMmNum(log.room)}</td><td class="px-2 text-left truncate">${log.guest}</td><td class="text-center"><span class="small-log text-emerald-600">In: ${toMmNum(log.in)}</span><span class="small-log text-rose-400">Out: ${toMmNum(log.out)}</span></td><td class="price-cell pr-2"><span>${toMmNum(tLog.toLocaleString())}</span></td>`;
+            const body = document.getElementById('income-logs-body'); body.innerHTML = ''; 
+            if(logs.length === 0) { body.innerHTML = '<tr><td colspan="5" class="text-center text-slate-400 py-16 font-bold uppercase text-[10px]">မှတ်တမ်းမရှိသေးပါ။</td></tr>'; return; }
+            logs.forEach((log, index) => { 
+                const row = document.createElement('tr'); 
+                const tLog = (parseInt(log.price)||0) + (parseInt(log.extra)||0); 
+                const tStr = log.logTime ? toMmNum(log.logTime) : "--";
+                row.innerHTML = `
+                    <td class="text-center">
+                        <span class="font-black text-[10px] text-slate-800 block">#${toMmNum(index+1)}</span>
+                        <span class="small-log">${tStr}</span>
+                    </td>
+                    <td class="text-center font-black text-slate-600">${toMmNum(log.room)}</td>
+                    <td class="guest-cell truncate px-2 text-left">${log.guest || 'ဧည့်သည်'}</td>
+                    <td class="text-center">
+                        <span class="small-log text-emerald-600">In: ${toMmNum(log.in)}</span>
+                        <span class="small-log text-rose-400">Out: ${toMmNum(log.out)}</span>
+                    </td>
+                    <td class="price-cell pr-2">
+                        <span class="block">${toMmNum(tLog.toLocaleString())}</span>
+                        ${(log.extra||0)>0 ? '<span class="small-log text-amber-500 font-black uppercase text-[7px]">+Drink</span>' : ''}
+                    </td>`; 
                 body.appendChild(row); 
             });
+            document.getElementById('display-total-income').innerText = toMmNum(parseInt(dailyTotal).toLocaleString());
         }
 
         window.onload = async () => {
-            lucide.createIcons(); const today = getTodayStr(); document.getElementById('display-date').innerText = toMmNum(today); document.getElementById('footer-date').innerText = toMmNum(today);
+            lucide.createIcons(); const todayStr = getTodayStr();
+            const de = document.getElementById('display-date'); if(de) de.innerText = toMmNum(todayStr); 
+            const fe = document.getElementById('footer-date'); if(fe) fe.innerText = toMmNum(todayStr);
             if(!syncID) { document.getElementById('loader').style.display = 'none'; document.getElementById('setup-screen').classList.remove('hidden'); return; }
+            
             const cache = localStorage.getItem('cache_v101_final_' + syncID);
-            if(cache) { const d = JSON.parse(cache); rooms = d.rooms; dailyTotal = d.dailyTotal; logs = d.logs || []; lastResetDate = d.lastResetDate || ""; } else { rooms = createDefaults(); }
-            render(); try { await fetchAllRooms(); } catch(e) {}
-            document.getElementById('loader').style.display = 'none'; document.getElementById('main-ui').classList.remove('hidden'); document.getElementById('income-trigger').classList.remove('hidden');
-            setInterval(fetchAllRooms, 5000);
+            if(cache) { 
+                const d = JSON.parse(cache); 
+                rooms = d.rooms; dailyTotal = d.dailyTotal; logs = d.logs || []; lastResetDate = d.lastResetDate || "";
+            } else { 
+                rooms = createDefaults(); 
+            }
+            
+            render(); 
+            try { await fetchAllRooms(); } catch(e) {}
+            
+            document.getElementById('loader').style.display = 'none'; 
+            document.getElementById('main-ui').classList.remove('hidden'); 
+            document.getElementById('income-trigger').classList.remove('hidden');
+            
+            setInterval(fetchAllRooms, 5000); // ၅ စက္ကန့်တိုင်း cloud sync လုပ်မည်
         };
     </script>
 </body>
